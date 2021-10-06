@@ -112,8 +112,11 @@ namespace ModuleHW
 
         public bool Insert(int index, T item)
         {
-            if (item == null)
+            if (item == null || index > _counter)
             {
+                Console.WriteLine(string.Empty);
+                Console.WriteLine($"{GetType().Name[0..^2]}<{typeof(T).Name}>.Insert: ");
+                Console.WriteLine(item == null ? "Item is null!" : "Index out of range!");
                 return false;
             }
 
@@ -125,6 +128,32 @@ namespace ModuleHW
             }
 
             _arrayList[index] = item;
+
+            return true;
+        }
+
+        public bool InsertRange(int startindex, params T[] items)
+        {
+            if (items == null || startindex > _counter)
+            {
+                Console.WriteLine(string.Empty);
+                Console.Write($"{GetType().Name[0..^2]}<{typeof(T).Name}>.InsertRange: ");
+                Console.WriteLine(items == null ? "Items is null!" : "Start index out of range!");
+                return false;
+            }
+
+            CheckCapacity(_counter + items.Length);
+
+            for (int i = _counter + items.Length - 1; i > startindex + items.Length - 1; i--)
+            {
+                _arrayList[i] = _arrayList[i - items.Length];
+            }
+
+            for (int i = 0; i < items.Length; i++)
+            {
+                _arrayList[startindex + i] = items[i];
+                _counter++;
+            }
 
             return true;
         }
@@ -157,7 +186,7 @@ namespace ModuleHW
             if (!isSuccess)
             {
                 Console.WriteLine(string.Empty);
-                Console.WriteLine($"{GetType().Name}.Remove: There is no item with value \"{item}\"");
+                Console.WriteLine($"{GetType().Name[0..^2]}<{typeof(T).Name}>.Remove: There is no item with value \"{item}\"");
             }
 
             return isSuccess;
@@ -198,7 +227,7 @@ namespace ModuleHW
                 if (!thisSuccess)
                 {
                     Console.WriteLine(string.Empty);
-                    Console.WriteLine($"{GetType().Name}.RemoveRange: There is no item with value \"{item}\"");
+                    Console.WriteLine($"{GetType().Name[0..^2]}<{typeof(T).Name}>.RemoveRange: There is no item with value \"{item}\"");
                 }
             }
 
@@ -225,7 +254,7 @@ namespace ModuleHW
             if (!isSuccess)
             {
                 Console.WriteLine(string.Empty);
-                Console.WriteLine($"{GetType().Name}.RemoveAt: There is no item with index \"{index}\"");
+                Console.WriteLine($"{GetType().Name[0..^2]}<{typeof(T).Name}>.RemoveAt: There is no item with index \"{index}\"");
             }
 
             return isSuccess;
@@ -253,7 +282,7 @@ namespace ModuleHW
                 else
                 {
                     Console.WriteLine(string.Empty);
-                    Console.WriteLine($"{GetType().Name}.RemoveAtRange: There is no item with index \"{index}\"");
+                    Console.WriteLine($"{GetType().Name[0..^2]}<{typeof(T).Name}>.RemoveAtRange: There is no item with index \"{index}\"");
                 }
             }
 
@@ -262,12 +291,12 @@ namespace ModuleHW
 
         public void Sort()
         {
-            Array.Sort<T>(_arrayList, 0, _counter);
+            Array.Sort(_arrayList, 0, _counter);
         }
 
         public void Sort(IComparer<T> comparer)
         {
-            Array.Sort<T>(_arrayList, 0, _counter, comparer);
+            Array.Sort(_arrayList, 0, _counter, comparer);
         }
 
         public void Reset()
@@ -326,9 +355,9 @@ namespace ModuleHW
 
         private void CheckCapacity(int count)
         {
-            while (count >= _arrayList.Length - 1)
+            while (count >= _arrayList.Length)
             {
-                Array.Resize<T>(ref _arrayList, _arrayList.Length * 2);
+                Array.Resize(ref _arrayList, _arrayList.Length * 2);
             }
         }
 
@@ -336,7 +365,7 @@ namespace ModuleHW
         {
             while (_counter < _arrayList.Length / 2)
             {
-                Array.Resize<T>(ref _arrayList, _arrayList.Length / 2);
+                Array.Resize(ref _arrayList, _arrayList.Length / 2);
             }
         }
     }

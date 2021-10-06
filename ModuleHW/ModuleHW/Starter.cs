@@ -9,21 +9,13 @@ namespace ModuleHW
             var intList = new ArrayList<int>();
             ListInfo(intList);
 
-            var intArray = new int[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0 };
+            var intArray = new int[] { 0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100 };
 
-            intList.Add(0);
-            intList.Add(9);
-            intList.Add(8);
-            intList.Add(7);
-            intList.Add(6);
-            ListInfo(intList);
+            for (int i = 0; i < 10; i++)
+            {
+                intList.Add(i);
+            }
 
-            intList.Add(5);
-            intList.Add(4);
-            intList.Add(3);
-            intList.Add(2);
-            intList.Add(1);
-            intList.Add(0);
             ListInfo(intList);
 
             intList.AddRange(intArray);
@@ -32,13 +24,16 @@ namespace ModuleHW
             intList.RemoveAt(5);
             ListInfo(intList);
 
-            intList.RemoveAtRange(5, 6, 8, 9, 14, 15, 16, 22);
+            intList.RemoveAtRange(6, 8, 9, 10, 14, 16, 20, 22);
             ListInfo(intList);
 
-            intList.Remove(0);
+            intList.InsertRange(14, 2, 22, 222, 2222, 44, 45);
             ListInfo(intList);
 
-            intList.RemoveRange(0, 6, 16, 26);
+            intList.Remove(10);
+            ListInfo(intList);
+
+            intList.RemoveRange(0, 6, 16, 30, 50, 70, 90, 101);
             ListInfo(intList);
 
             intList.Sort(new IntComparer());
@@ -79,18 +74,21 @@ namespace ModuleHW
             stringList.RemoveAtRange(5);
             ListInfo(stringList);
 
-            stringList.RemoveAtRange(5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 20, 22);
+            stringList.RemoveAtRange(5, 6, 7, 11, 12, 14, 16, 20, 21, 22);
             ListInfo(stringList);
 
-            stringList.RemoveRange("five", "cinque", "dieci");
+            stringList.RemoveRange("five", "cinque", "dieci", "extra");
             ListInfo(stringList);
 
-            stringList.AddItems("five", "cinque", "dieci");
+            stringList.AddItems("five", "cinque", "dieci", "undici");
             ListInfo(stringList);
 
             stringList.Insert(4, "INSERTATION1");
             stringList.Insert(4, "INSERTATION2");
             stringList.Insert(4, "INSERTATION3");
+            ListInfo(stringList);
+
+            stringList.InsertRange(4, "INSERTATION4", "INSERTATION5", "INSERTATION6", "INSERTATION7", "INSERTATION8");
             ListInfo(stringList);
 
             Console.ReadKey();
